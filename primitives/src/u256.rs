@@ -2,7 +2,7 @@
 
 use rstd::prelude::Vec;
 #[cfg(not(feature="std"))]
-use rstd::alloc::prelude::ToOwned;
+use rstd::alloc::prelude::v1::ToOwned;
 
 construct_uint!(U256, 4);
 
