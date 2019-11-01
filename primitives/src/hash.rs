@@ -188,6 +188,7 @@ impl H256 {
 	}
 }
 
+extern crate impl_codec;
 use impl_codec::*;
 #[cfg(feature = "impl-codec")]
 impl_fixed_hash_codec!(H256, 32);
