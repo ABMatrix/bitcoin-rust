@@ -7,8 +7,11 @@ use hex::{ToHex, FromHexError, FromHex};
 #[cfg(feature = "std")]
 use heapsize::HeapSizeOf;
 
+#[macro_use]
+use codec2::{ Encode, Decode };
+
 /// Wrapper around `Vec<u8>`
-#[derive(Default, PartialEq, Clone, Eq)]
+#[derive(Default, PartialEq, Clone, Eq, Encode, Decode)]
 pub struct Bytes(Vec<u8>);
 
 impl Bytes {

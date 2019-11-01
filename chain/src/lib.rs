@@ -19,6 +19,9 @@ extern crate serde;
 #[macro_use]
 extern crate sr_std as rstd;
 
+#[macro_use]
+extern crate parity_scale_codec;
+
 pub mod constants;
 
 mod block;

@@ -20,7 +20,7 @@ const WITNESS_MARKER: u8 = 0;
 const WITNESS_FLAG: u8 = 1;
 
 #[cfg_attr(feature = "std", derive(Debug))]
-#[derive(PartialEq, Eq, Clone, Default)]
+#[derive(PartialEq, Eq, Clone, Default, Encode, Decode)]
 pub struct OutPoint {
     pub hash: H256,
     pub index: u32,
@@ -58,7 +58,7 @@ impl OutPoint {
 }
 
 #[cfg_attr(feature = "std", derive(Debug))]
-#[derive(PartialEq, Default, Clone, Eq)]
+#[derive(PartialEq, Default, Clone, Eq, Encode, Decode)]
 pub struct TransactionInput {
     pub previous_output: OutPoint,
     pub script_sig: Bytes,
@@ -94,7 +94,7 @@ impl HeapSizeOf for TransactionInput {
 }
 
 #[cfg_attr(feature = "std", derive(Debug))]
-#[derive(PartialEq, Clone, Eq)]
+#[derive(PartialEq, Clone, Eq, Encode, Decode)]
 pub struct TransactionOutput {
     pub value: u64,
     pub script_pubkey: Bytes,
@@ -133,8 +133,11 @@ impl HeapSizeOf for TransactionOutput {
     }
 }
 
+#[macro_use]
+use parity_scale_codec::{ Encode, Decode };
+
 #[cfg_attr(feature = "std", derive(Debug))]
-#[derive(PartialEq, Default, Clone, Eq)]
+#[derive(PartialEq, Default, Clone, Eq, Encode, Decode)]
 pub struct Transaction {
     pub version: i32,
     pub inputs: Vec<TransactionInput>,
@@ -305,23 +308,23 @@ impl Deserializable for Transaction {
     }
 }
 
-impl ::codec::Encode for Transaction {
-    fn encode(&self) -> Vec<u8> {
-        let value = serialize::<Transaction>(&self);
-        value.encode()
-    }
-}
-
-impl ::codec::Decode for Transaction {
-    fn decode<I: ::codec::Input>(input: &mut I) -> Option<Self> {
-        let value: Vec<u8> = ::codec::Decode::decode(input).unwrap();
-        if let Ok(tx) = deserialize(Reader::new(&value)) {
-            Some(tx)
-        } else {
-            None
-        }
-    }
-}
+//impl ::codec::Encode for Transaction {
+//    fn encode(&self) -> Vec<u8> {
+//        let value = serialize::<Transaction>(&self);
+//        value.encode()
+//    }
+//}
+//
+//impl ::codec::Decode for Transaction {
+//    fn decode<I: ::codec::Input>(input: &mut I) -> Option<Self> {
+//        let value: Vec<u8> = ::codec::Decode::decode(input).unwrap();
+//        if let Ok(tx) = deserialize(Reader::new(&value)) {
+//            Some(tx)
+//        } else {
+//            None
+//        }
+//    }
+//}
 
 #[cfg(test)]
 mod tests {

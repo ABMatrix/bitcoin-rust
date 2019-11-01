@@ -161,12 +161,13 @@ dependencies = [
  "bitcrypto 0.1.0",
  "heapsize 0.4.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "parity-codec 3.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "parity-scale-codec 1.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "primitives 0.1.0",
  "rustc-hex 2.0.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde 1.0.102 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde_bytes 0.10.4 (git+https://github.com/serde-rs/bytes)",
  "serialization 0.1.0",
- "sr-std 0.1.0 (git+https://github.com/chainx-org/sr-std)",
+ "sr-std 2.0.0 (git+https://github.com/paritytech/substrate)",
 ]
 
 [[package]]

@@ -21,6 +21,7 @@ default-features = false
 [dependencies.parity-scale-codec]
 version = "1.0.6"
 default-features = false
+features = ["derive"]
 
 [features]
 default = ["std"]
