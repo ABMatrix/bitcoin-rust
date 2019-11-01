@@ -10,7 +10,10 @@ use primitives::io;
 use rstd::result::Result;
 use rstd::prelude::Vec;
 
-#[derive(PartialEq, Clone, Eq, Default)]
+#[macro_use]
+use parity_scale_codec::{ Encode, Decode };
+
+#[derive(PartialEq, Clone, Eq, Default, Encode, Decode)]
 pub struct BlockHeader {
     pub version: u32,
     pub previous_header_hash: H256,

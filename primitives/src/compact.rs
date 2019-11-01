@@ -2,8 +2,12 @@
 
 use U256;
 
+#[macro_use]
+use codec2::{ Encode, Decode };
+
+
 /// Compact representation of `U256`
-#[derive(Debug, PartialEq, Clone, Copy, Eq, Default)]
+#[derive(Debug, PartialEq, Clone, Copy, Eq, Default, Encode, Decode)]
 pub struct Compact(u32);
 
 impl From<u32> for Compact {
