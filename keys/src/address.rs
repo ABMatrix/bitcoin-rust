@@ -19,6 +19,9 @@ use DisplayLayout;
 use ser::{serialize, deserialize, Serializable, Stream, Reader, Deserializable};
 use primitives::io;
 
+#[macro_use]
+use parity_scale_codec::{ Encode, Decode };
+
 /// There are two address formats currently in use.
 /// https://bitcoin.org/en/developer-reference#address-conversion
 #[cfg_attr(feature = "std", derive(Debug))]

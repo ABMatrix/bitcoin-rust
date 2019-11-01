@@ -205,6 +205,19 @@ impl codec2::Decode for H256 {
     }
 }
 
+impl codec2::Encode for H160 {
+	fn using_encoded<R, F: FnOnce(&[u8]) -> R>(&self, f: F) -> R {
+		self.0.using_encoded(f)
+	}
+}
+
+impl codec2::Decode for H160 {
+	fn decode<I: codec2::Input>(input: &mut I) -> core::result::Result<Self, codec2::Error>
+	{
+		<[u8;20] as codec2::Decode>::decode(input).map(H160)
+	}
+}
+
 /*
 #[macro_use]
 extern crate impl_codec;

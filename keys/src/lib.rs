@@ -11,9 +11,15 @@ extern crate secp256k1;
 extern crate bitcrypto as crypto;
 extern crate primitives;
 extern crate sr_std as rstd;
-#[macro_use]
-extern crate parity_codec_derive;
+//
+//#[macro_use]
+//extern crate parity_codec_derive;
 extern crate parity_codec as codec;
+
+#[macro_use]
+extern crate parity_scale_codec;
+
+
 extern crate serialization as ser;
 #[cfg(feature = "std")]
 extern crate serde_bytes;

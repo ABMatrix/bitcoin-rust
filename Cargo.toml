@@ -10,7 +10,7 @@ parking_lot = "0.4"
 log = "0.4"
 env_logger = "0.5"
 app_dirs = { git = "https://github.com/paritytech/app-dirs-rs" }
-jsonrpc-http-server = { git = "https://github.com/ethcore/jsonrpc.git" }
+jsonrpc-http-server = { version = "14.0", git = "https://github.com/paritytech/jsonrpc" }
 libc = "0.2"
 clap = { version = "2", features = ["yaml"] }
 chain = { path = "chain" }
@@ -29,7 +29,7 @@ sync = { path = "sync" }
 logs = { path = "logs" }
 rpc = { path = "rpc" }
 primitives = { path = "primitives" }
-tokio = "0.1"
+tokio = "0.1.15"
 exit-future = "0.1"
 
 [profile.test]
