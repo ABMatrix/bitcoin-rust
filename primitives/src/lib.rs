@@ -19,6 +19,8 @@ extern crate crunchy;
 #[macro_use]
 extern crate uint as uint_crate;
 
+pub extern crate parity_scale_codec as codec2;
+
 pub mod bytes;
 pub mod compact;
 pub mod hash;

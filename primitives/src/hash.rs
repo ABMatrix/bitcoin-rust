@@ -7,8 +7,11 @@ use rstd::hash::{Hash, Hasher};
 #[cfg(feature = "std")]
 use std::{str, fmt};
 
-use codec::{ Encode, Decode};
+//use codec::{ Encode, Decode};
 
+
+
+//pub extern crate parity_scale_codec as codec;
 
 macro_rules! impl_hash {
 	($name: ident, $size: expr) => {
@@ -188,11 +191,25 @@ impl H256 {
 	}
 }
 
-extern crate impl_codec;
-use impl_codec::*;
-#[cfg(feature = "impl-codec")]
-impl_fixed_hash_codec!(H256, 32);
 
+impl codec2::Encode for H256 {
+	fn using_encoded<R, F: FnOnce(&[u8]) -> R>(&self, f: F) -> R {
+	    self.0.using_encoded(f)
+    }
+}
+
+impl codec2::Decode for H256 {
+    fn decode<I: codec2::Input>(input: &mut I) -> core::result::Result<Self, codec2::Error>
+    {
+        <[u8;32] as codec2::Decode>::decode(input).map(H256)
+    }
+}
+
+/*
+#[macro_use]
+extern crate impl_codec;
+impl_fixed_hash_codec!(H256, 32);
+*/
 /*
 impl codec::Encode for H256 {
 	fn using_encoded<R, F: FnOnce(&[u8]) -> R>(&self, f: F) -> R {
