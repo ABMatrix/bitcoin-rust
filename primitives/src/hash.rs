@@ -7,6 +7,9 @@ use rstd::hash::{Hash, Hasher};
 #[cfg(feature = "std")]
 use std::{str, fmt};
 
+use codec::{ Encode, Decode};
+
+
 macro_rules! impl_hash {
 	($name: ident, $size: expr) => {
 		#[repr(C)]
@@ -185,16 +188,20 @@ impl H256 {
 	}
 }
 
-impl ::codec::Encode for H256 {
+impl_fixed_hash_codec!(H256, 32);
+
+/*
+impl codec::Encode for H256 {
 	fn using_encoded<R, F: FnOnce(&[u8]) -> R>(&self, f: F) -> R {
 		self.0.using_encoded(f)
 	}
 }
-impl ::codec::Decode for H256 {
+impl codec::Decode for H256 {
 	fn decode<I: ::codec::Input>(input: &mut I) -> Option<Self> {
 		<[u8; 32] as ::codec::Decode>::decode(input).map(H256)
 	}
 }
+*/
 
 impl ::codec::Encode for H160 {
 	fn using_encoded<R, F: FnOnce(&[u8]) -> R>(&self, f: F) -> R {
