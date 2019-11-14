@@ -23,6 +23,17 @@ pub struct BlockHeader {
     pub nonce: u32,
 }
 
+#[derive(PartialEq, Clone, Eq, Default, Encode, Decode)]
+pub struct BlockHeaderu32 {
+    pub version: u32,
+    pub previous_header_hash: H256,
+    pub merkle_root_hash: H256,
+    pub time: u32,
+    pub bits: u32,
+    pub nonce: u32,
+}
+
+
 #[cfg(feature = "std")]
 impl serde::Serialize for BlockHeader {
     #[inline]
@@ -36,7 +47,35 @@ impl serde::Serialize for BlockHeader {
 }
 
 #[cfg(feature = "std")]
+impl serde::Serialize for BlockHeaderu32 {
+    #[inline]
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+    {
+        let value = serialize::<BlockHeaderu32>(&self).take();
+        serde_bytes::serialize(&value, serializer)
+    }
+}
+
+#[cfg(feature = "std")]
 impl<'de> serde::Deserialize<'de> for BlockHeader {
+    #[inline]
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+    {
+        let value: Vec<u8> = serde_bytes::deserialize(deserializer).unwrap();
+        if let Ok(header) = deserialize(Reader::new(&value)) {
+            Ok(header)
+        } else {
+            Err(serde::de::Error::custom("header is not expect"))
+        }
+    }
+}
+
+#[cfg(feature = "std")]
+impl<'de> serde::Deserialize<'de> for BlockHeaderu32 {
     #[inline]
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where
@@ -58,7 +97,25 @@ impl ::codec::Encode for BlockHeader {
     }
 }
 
+impl ::codec::Encode for BlockHeaderu32 {
+    fn encode(&self) -> Vec<u8> {
+        let value = serialize::<BlockHeaderu32>(&self);
+        value.encode()
+    }
+}
+
 impl ::codec::Decode for BlockHeader {
+    fn decode<I: ::codec::Input>(input: &mut I) -> Option<Self> {
+        let value: Vec<u8> = ::codec::Decode::decode(input).unwrap();
+        if let Ok(header) = deserialize(Reader::new(&value)) {
+            Some(header)
+        } else {
+            None
+        }
+    }
+}
+
+impl ::codec::Decode for BlockHeaderu32 {
     fn decode<I: ::codec::Input>(input: &mut I) -> Option<Self> {
         let value: Vec<u8> = ::codec::Decode::decode(input).unwrap();
         if let Ok(header) = deserialize(Reader::new(&value)) {
@@ -80,9 +137,33 @@ impl Serializable for BlockHeader {
     }
 }
 
+impl Serializable for BlockHeaderu32 {
+    fn serialize(&self, stream: &mut Stream) {
+        stream.append(&self.version)
+            .append(&self.previous_header_hash)
+            .append(&self.merkle_root_hash)
+            .append(&self.time)
+            .append(&self.bits)
+            .append(&self.nonce);
+    }
+}
+
 impl Deserializable for BlockHeader {
     fn deserialize<T>(reader: &mut Reader<T>) -> Result<Self, io::Error> where T: io::Read {
         Ok(BlockHeader {
+            version: reader.read()?,
+            previous_header_hash: reader.read()?,
+            merkle_root_hash: reader.read()?,
+            time: reader.read()?,
+            bits: reader.read()?,
+            nonce: reader.read()?,
+        })
+    }
+}
+
+impl Deserializable for BlockHeaderu32 {
+    fn deserialize<T>(reader: &mut Reader<T>) -> Result<Self, io::Error> where T: io::Read {
+        Ok(BlockHeaderu32 {
             version: reader.read()?,
             previous_header_hash: reader.read()?,
             merkle_root_hash: reader.read()?,
