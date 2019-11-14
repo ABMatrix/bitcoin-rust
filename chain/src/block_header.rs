@@ -194,6 +194,22 @@ impl std::fmt::Debug for BlockHeader {
     }
 }
 
+
+#[cfg(feature = "std")]
+impl std::fmt::Debug for BlockHeaderu32 {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        f.debug_struct("BlockHeader")
+            .field("version", &self.version)
+            .field("previous_header_hash", &self.previous_header_hash.clone().reverse())
+            .field("merkle_root_hash", &self.merkle_root_hash.clone().reverse())
+            .field("time", &self.time)
+            .field("bits", &self.bits)
+            .field("nonce", &self.nonce)
+            .finish()
+    }
+}
+
+
 #[cfg(feature = "std")]
 impl From<&'static str> for BlockHeader {
     fn from(s: &'static str) -> Self {
