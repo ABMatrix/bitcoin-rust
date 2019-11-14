@@ -43,6 +43,7 @@ pub use primitives::{hash, bytes, compact, io};
 
 pub use block::Block;
 pub use block_header::BlockHeader;
+pub use block_header::BlockHeaderu32;
 pub use merkle_root::{merkle_root, merkle_node_hash};
 pub use transaction::{Transaction, TransactionInput, TransactionOutput, OutPoint};
 
