@@ -7,7 +7,7 @@ use rstd::hash::{Hash, Hasher};
 #[cfg(feature = "std")]
 use std::{str, fmt};
 
-//use codec::{ Encode, Decode};
+use codec::{EncodeLike};
 
 
 
@@ -144,6 +144,8 @@ macro_rules! impl_hash {
 
 		impl Eq for $name { }
 
+		impl EncodeLike for $name { }
+		
 		impl $name {
 			pub fn take(self) -> [u8; $size] {
 				self.0
