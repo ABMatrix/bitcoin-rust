@@ -5,7 +5,7 @@ authors = ["debris <marek.kotewicz@gmail.com> chainpool & <http://chainx.org>"]
 
 [dependencies]
 crunchy = "0.2"
-sr-std = { git = "https://github.com/paritytech/substrate", default-features = false }
+sr-std = { package = "sp-std", version = "2.0.0-alpha.2", default-features = false, git = "https://github.com/paritytech/substrate.git" }
 heapsize = { version = "0.4", optional = true }
 rustc-hex = { version = "2.0", default-features = false }
 byteorder = { version = "1", default-features = false }
