@@ -24,8 +24,8 @@ use parity_scale_codec::{ Encode, Decode };
 
 /// There are two address formats currently in use.
 /// https://bitcoin.org/en/developer-reference#address-conversion
-#[cfg_attr(feature = "std", derive(Debug))]
-#[derive(PartialEq, Clone, Copy, Encode, Decode)]
+// #[cfg_attr(feature = "std", derive(Debug))]
+#[derive(PartialEq, Clone, Copy, Encode, Decode, RuntimeDebug)]
 pub enum Type {
 	/// Pay to PubKey Hash
 	/// Common P2PKH which begin with the number 1, eg: 1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2.
@@ -69,8 +69,8 @@ impl Deserializable for Type {
 }
 
 /// `AddressHash` with network identifier and format type
-#[cfg_attr(feature = "std", derive(Debug))]
-#[derive(PartialEq, Clone, Encode, Decode, Default)]
+// #[cfg_attr(feature = "std", derive(Debug))]
+#[derive(PartialEq, Clone, Encode, Decode, Default, RuntimeDebug)]
 pub struct Address {
 	/// The type of the address.
 	pub kind: Type,

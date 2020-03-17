@@ -7,9 +7,20 @@ use rstd::hash::{Hash, Hasher};
 #[cfg(feature = "std")]
 use std::{str, fmt};
 
-use codec::{EncodeLike};
+use codec2::{EncodeLike};
 
 
+impl EncodeLike for H256 { }
+
+#[cfg(not(feature = "std"))]
+impl ::core::fmt::Debug for H256 {
+	fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
+		for byte in self.0.iter() {
+			f.write_fmt(format_args!("{:02x}", byte))?;
+		}
+		Ok(())
+	}
+}
 
 //pub extern crate parity_scale_codec as codec;
 
@@ -144,8 +155,6 @@ macro_rules! impl_hash {
 
 		impl Eq for $name { }
 
-		impl EncodeLike for $name { }
-		
 		impl $name {
 			pub fn take(self) -> [u8; $size] {
 				self.0

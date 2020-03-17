@@ -4,8 +4,8 @@
 use hex::FromHex;
 use ser::{serialize, deserialize, Serializable, Stream, Reader, Deserializable};
 use crypto::dhash256;
-use compact::Compact;
-use hash::H256;
+use crate::compact::Compact;
+use crate::hash::H256;
 use primitives::io;
 use rstd::result::Result;
 use rstd::prelude::Vec;
@@ -194,7 +194,6 @@ impl std::fmt::Debug for BlockHeader {
     }
 }
 
-
 #[cfg(feature = "std")]
 impl std::fmt::Debug for BlockHeaderu32 {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
@@ -209,6 +208,19 @@ impl std::fmt::Debug for BlockHeaderu32 {
     }
 }
 
+#[cfg(not(feature = "std"))]
+impl core::fmt::Debug for BlockHeaderu32 {
+    fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
+        f.debug_struct("BlockHeader")
+            .field("version", &self.version)
+            .field("previous_header_hash", &self.previous_header_hash.clone().reverse())
+            .field("merkle_root_hash", &self.merkle_root_hash.clone().reverse())
+            .field("time", &self.time)
+            .field("bits", &self.bits)
+            .field("nonce", &self.nonce)
+            .finish()
+    }
+}
 
 #[cfg(feature = "std")]
 impl From<&'static str> for BlockHeader {

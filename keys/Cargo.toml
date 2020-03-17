@@ -5,6 +5,7 @@ authors = ["debris <marek.kotewicz@gmail.com>"]
 
 [dependencies]
 sr-std = { package = "sp-std", version = "2.0.0-alpha.2", default-features = false, git = "https://github.com/paritytech/substrate.git" }
+sp-debug-derive = { version = "2.0.0-alpha.2", default-features = false, git = "https://github.com/paritytech/substrate.git" }
 rand = { version = "0.4", optional = true }
 rustc-hex = { version = "2", optional = true }
 base58 = { version = "0.1", optional = true }
@@ -49,4 +50,5 @@ std = [
     "impl-codec/std",
     "parity-codec/std",
     "parity-scale-codec/std",
+    "sp-debug-derive/std",
 ]

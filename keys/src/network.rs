@@ -2,8 +2,8 @@
 use ser::{serialize, deserialize, Serializable, Stream, Reader, Deserializable};
 use primitives::io;
 
-#[cfg_attr(feature = "std", derive(Debug))]
-#[derive(PartialEq, Clone, Copy, Encode, Decode)]
+// #[cfg_attr(feature = "std", derive(Debug))]
+#[derive(PartialEq, Clone, Copy, Encode, Decode, RuntimeDebug)]
 pub enum Network {
 	Mainnet = 0,
 	Testnet = 1,

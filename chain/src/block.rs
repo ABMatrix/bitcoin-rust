@@ -4,9 +4,9 @@
 use hex::FromHex;
 #[cfg(feature = "std")]
 use ser::deserialize;
-use hash::H256;
-use merkle_root::merkle_root;
-use {BlockHeader, Transaction};
+use crate::hash::H256;
+use crate::merkle_root::merkle_root;
+use super::{BlockHeader, Transaction};
 use super::RepresentH256;
 use rstd::prelude::Vec;
 use primitives::io;

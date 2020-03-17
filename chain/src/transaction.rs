@@ -1,16 +1,16 @@
 //! Bitcoin trainsaction.
 //! https://en.bitcoin.it/wiki/Protocol_documentation#tx
 
-use io;
+use crate::io;
 #[cfg(feature = "std")]
 use heapsize::HeapSizeOf;
 #[cfg(feature = "std")]
 use hex::FromHex;
-use bytes::Bytes;
+use crate::bytes::Bytes;
 use ser::{deserialize, serialize, serialize_with_flags, SERIALIZE_TRANSACTION_WITNESS};
 use crypto::dhash256;
-use hash::H256;
-use constants::{SEQUENCE_FINAL, LOCKTIME_THRESHOLD};
+use crate::hash::H256;
+use crate::constants::{SEQUENCE_FINAL, LOCKTIME_THRESHOLD};
 use ser::{Error, Serializable, Deserializable, Stream, Reader};
 use rstd::prelude::Vec;
 
@@ -19,8 +19,8 @@ const WITNESS_MARKER: u8 = 0;
 /// Must be nonzero.
 const WITNESS_FLAG: u8 = 1;
 
-#[cfg_attr(feature = "std", derive(Debug))]
-#[derive(PartialEq, Eq, Clone, Default, Encode, Decode)]
+// #[cfg_attr(feature = "std", derive(Debug))]
+#[derive(PartialEq, Eq, Clone, Default, Encode, Decode, RuntimeDebug)]
 pub struct OutPoint {
     pub hash: H256,
     pub index: u32,
@@ -57,8 +57,8 @@ impl OutPoint {
     }
 }
 
-#[cfg_attr(feature = "std", derive(Debug))]
-#[derive(PartialEq, Default, Clone, Eq, Encode, Decode)]
+// #[cfg_attr(feature = "std", derive(Debug))]
+#[derive(PartialEq, Default, Clone, Eq, Encode, Decode, RuntimeDebug)]
 pub struct TransactionInput {
     pub previous_output: OutPoint,
     pub script_sig: Bytes,
@@ -93,8 +93,8 @@ impl HeapSizeOf for TransactionInput {
     }
 }
 
-#[cfg_attr(feature = "std", derive(Debug))]
-#[derive(PartialEq, Clone, Eq, Encode, Decode)]
+// #[cfg_attr(feature = "std", derive(Debug))]
+#[derive(PartialEq, Clone, Eq, Encode, Decode, RuntimeDebug)]
 pub struct TransactionOutput {
     pub value: u64,
     pub script_pubkey: Bytes,
@@ -136,8 +136,8 @@ impl HeapSizeOf for TransactionOutput {
 #[macro_use]
 use parity_scale_codec::{ Encode, Decode };
 
-#[cfg_attr(feature = "std", derive(Debug))]
-#[derive(PartialEq, Default, Clone, Eq, Encode, Decode)]
+// #[cfg_attr(feature = "std", derive(Debug))]
+#[derive(PartialEq, Default, Clone, Eq, Encode, Decode, RuntimeDebug)]
 pub struct Transaction {
     pub version: i32,
     pub inputs: Vec<TransactionInput>,

@@ -1,7 +1,7 @@
 // Copyright 2018 Chainpool
 
 use crypto::dhash256;
-use hash::{H256, H512};
+use crate::hash::{H256, H512};
 use rstd::prelude::Vec;
 
 #[inline]

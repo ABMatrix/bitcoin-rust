@@ -1,11 +1,11 @@
 // Copyright 2018 Chainpool
 
-use rstd::cmp;
+use rstd::{cmp, prelude::*};
 use primitives::io;
-use hash::H256;
+use crate::hash::H256;
 use ser::{Deserializable, Reader, Error as ReaderError};
-use block_header::BlockHeader;
-use read_and_hash::ReadAndHash;
+use crate::block_header::BlockHeader;
+use crate::read_and_hash::ReadAndHash;
 
 #[derive(Clone)]
 pub struct IndexedBlockHeader {
@@ -49,7 +49,7 @@ impl cmp::PartialEq for IndexedBlockHeader {
 
 impl Deserializable for IndexedBlockHeader {
 	fn deserialize<T>(reader: &mut Reader<T>) -> Result<Self, ReaderError> where T: io::Read {
-		let data = try!(reader.read_and_hash::<BlockHeader>());
+		let data = reader.read_and_hash::<BlockHeader>()?;
 		// TODO: use len
 		let header = IndexedBlockHeader {
 			raw: data.data,

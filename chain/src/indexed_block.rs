@@ -1,17 +1,17 @@
 // Copyright 2018 Chainpool
 
 use rstd::cmp;
-use hash::H256;
+use crate::hash::H256;
 #[cfg(feature = "std")]
 use hex::FromHex;
 #[cfg(feature = "std")]
 use ser::deserialize;
 use ser::{Reader, Deserializable, Serializable, serialized_list_size, serialized_list_size_with_flags, SERIALIZE_TRANSACTION_WITNESS};
-use block::Block;
-use transaction::Transaction;
-use merkle_root::merkle_root;
-use indexed_header::IndexedBlockHeader;
-use indexed_transaction::IndexedTransaction;
+use crate::block::Block;
+use crate::transaction::Transaction;
+use crate::merkle_root::merkle_root;
+use crate::indexed_header::IndexedBlockHeader;
+use crate::indexed_transaction::IndexedTransaction;
 use rstd::prelude::Vec;
 use primitives::io;
 

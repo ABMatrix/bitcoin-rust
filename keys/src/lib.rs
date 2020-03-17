@@ -19,6 +19,8 @@ extern crate parity_codec as codec;
 #[macro_use]
 extern crate parity_scale_codec;
 
+#[macro_use]
+extern crate sp_debug_derive;
 
 extern crate serialization as ser;
 #[cfg(feature = "std")]

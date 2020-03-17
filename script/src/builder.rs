@@ -76,6 +76,7 @@ impl Builder {
 	}
 
 	/// Appends data push operation to the end of script
+	#[allow(overflowing_literals)]
 	pub fn push_data(mut self, data: &[u8]) -> Self {
 		let len = data.len();
 		if len < Opcode::OP_PUSHDATA1 as usize {
